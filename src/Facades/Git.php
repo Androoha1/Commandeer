@@ -44,6 +44,10 @@ final class Git extends Facade {
         return empty(Git::status()->porcelain()->run()->getOutput());
     }
 
+    public static function hasChanges(): bool {
+        return !self::isWorkingTreeClean();
+    }
+
     public static function setCommitMessagesPrefix(string $prefix): void {
         self::$commitMessagesPrefix = $prefix;
     }
