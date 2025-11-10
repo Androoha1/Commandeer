@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Posternak\Commandeer;
 
+use RuntimeException;
+
 final class ShellCommand {
     private string $command = '';
     private array $output = [];
@@ -16,8 +18,21 @@ final class ShellCommand {
         return $this->output;
     }
 
+    /**
+     * @throws RuntimeException
+     */
     public function run(): self {
         exec($this->command, $this->output, $this->result_code);
+        if ($this->result_code !== 0) {
+            throw new RuntimeException(
+                sprintf(
+                    "Command failed with exit code %d: %s\nOutput: %s",
+                    $this->result_code,
+                    $this->command,
+                    implode("\n", $this->output)
+                )
+            );
+        }
         return $this;
     }
 
