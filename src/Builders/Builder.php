@@ -11,7 +11,7 @@ abstract class Builder {
     protected bool $hasRun = false;
     private static bool $faked = false;
 
-    public function __construct(string $command, array $args = []) {
+    final public function __construct(string $command, array $args = []) {
         $this->command = new ShellCommand(
             implode(
                 ' ',

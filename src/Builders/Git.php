@@ -5,12 +5,13 @@ declare(strict_types=1);
 namespace Posternak\Commandeer\Builders;
 
 /**
- * @method static self checkout(string $branch)
- * @method static self pull()
  * @method static self add(string ...$paths)
- * @method static self push(string $remote, string $branch)
+ * @method static self checkout(string $branch = '')
  * @method static self commit()
- * @method static status()
+ * @method static self pull()
+ * @method static self push(string $remote, string $branch)
+ * @method static self rev_parse()
+ * @method static self status()
  */
 final class Git extends Builder {
     private static string $commitMessagesPrefix = '';
