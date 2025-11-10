@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Posternak\Commandeer\Facades;
+namespace Posternak\Commandeer\Builders;
 
 /**
  * @method static self checkout(string $branch)
@@ -12,7 +12,7 @@ namespace Posternak\Commandeer\Facades;
  * @method static self commit()
  * @method static status()
  */
-final class Git extends Facade {
+final class Git extends Builder {
     private static string $commitMessagesPrefix = '';
     public static function checkoutNewBranch(string $branch): self {
         return self::checkout()->b($branch);

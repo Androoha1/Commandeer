@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Facades\Mocks;
+namespace Tests\Unit\Builders\Mocks;
 
-use Posternak\Commandeer\Facades\Facade as AutomationToolFacade;
+use Posternak\Commandeer\Builders\Builder as PosternakBuilder;
 
-abstract class Facade extends AutomationToolFacade {
+abstract class Builder extends PosternakBuilder {
     protected bool $hasRun = true;
 }

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Facades\Mocks;
+namespace Tests\Unit\Builders\Mocks;
 
-final class FacadeWithOverriddenExecutableName extends Facade {
+final class BuilderWithOverriddenExecutableName extends Builder {
     protected static function getExecutableName(): string
     {
         return 'overriddenName';

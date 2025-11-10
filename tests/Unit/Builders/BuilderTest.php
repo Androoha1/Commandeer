@@ -2,45 +2,45 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Facades;
+namespace Tests\Unit\Builders;
 
-use Posternak\Commandeer\Facades\Facade;
+use Posternak\Commandeer\Builders\Builder;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
-use Tests\Unit\Facades\Mocks\SomeFacade;
-use Tests\Unit\Facades\Mocks\FacadeWithOverriddenExecutableName;
+use Tests\Unit\Builders\Mocks\SomeBuilder;
+use Tests\Unit\Builders\Mocks\BuilderWithOverriddenExecutableName;
 
-class FacadeTest extends TestCase {
+class BuilderTest extends TestCase {
     #[Test]
     #[DataProvider('dataForTest')]
-    public function fluentApiCraftsCorrectCommand(Facade $instance, $expectedCommand): void {
+    public function fluentApiCraftsCorrectCommand(Builder $instance, $expectedCommand): void {
         $this->assertSame($expectedCommand, $instance->getCommand());
     }
 
     #[Test]
     public function getsOverriddenExecutableName(): void {
-        $this->assertSame('overriddenName someCommand', FacadeWithOverriddenExecutableName::someCommand()->getCommand());
+        $this->assertSame('overriddenName someCommand', BuilderWithOverriddenExecutableName::someCommand()->getCommand());
     }
 
     public static function dataForTest(): array
     {
         return [
             [
-                SomeFacade::someCommand(),
-                'somefacade someCommand',
+                SomeBuilder::someCommand(),
+                'somebuilder someCommand',
             ],
             [
-                SomeFacade::someCommand('commandArg')->some_option('someArg')->another_option('anotherArg'),
-                'somefacade someCommand commandArg --some-option someArg --another-option anotherArg',
+                SomeBuilder::someCommand('commandArg')->some_option('someArg')->another_option('anotherArg'),
+                'somebuilder someCommand commandArg --some-option someArg --another-option anotherArg',
             ],
             [
-                SomeFacade::someCommand()->b('someArg'),
-                'somefacade someCommand -b someArg',
+                SomeBuilder::someCommand()->b('someArg'),
+                'somebuilder someCommand -b someArg',
             ],
             [
-                SomeFacade::some_command(),
-                'somefacade some-command',
+                SomeBuilder::some_command(),
+                'somebuilder some-command',
             ]
         ];
     }

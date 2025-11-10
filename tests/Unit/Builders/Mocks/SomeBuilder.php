@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Facades\Mocks;
+namespace Tests\Unit\Builders\Mocks;
 
-final class SomeFacade extends Facade {
+final class SomeBuilder extends Builder {
 }

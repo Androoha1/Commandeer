@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Posternak\Commandeer\Facades;
+namespace Posternak\Commandeer\Builders;
 
 use Posternak\Commandeer\ShellCommand;
 
-abstract class Facade {
+abstract class Builder {
     protected ShellCommand $command;
     protected bool $hasRun = false;
     private static bool $faked = false;

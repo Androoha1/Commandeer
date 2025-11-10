@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Tests\Unit\Facades;
+namespace Tests\Unit\Builders;
 
-use Posternak\Commandeer\Facades\Facade;
-use Posternak\Commandeer\Facades\Git;
+use Posternak\Commandeer\Builders\Builder;
+use Posternak\Commandeer\Builders\Git;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
@@ -13,7 +13,7 @@ use PHPUnit\Framework\TestCase;
 class GitTest extends TestCase {
     #[Test]
     #[DataProvider('dataForTest')]
-    public function fluentApiCraftsCorrectCommand(Facade $instance, $expectedCommand): void {
+    public function fluentApiCraftsCorrectCommand(Builder $instance, $expectedCommand): void {
         Git::fake();
         $this->assertSame($expectedCommand, $instance->getCommand());
     }
