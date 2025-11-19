@@ -45,6 +45,8 @@ final class ShellCommand {
     }
 
     public function appendToCommand(string $append, string $separator = ' '): void {
-        $this->command .= $separator . $append;
+        if ($append !== '') {
+            $this->command .= $separator . $append;
+        }
     }
 }

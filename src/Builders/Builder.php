@@ -35,9 +35,7 @@ abstract class Builder {
     }
 
     public function __call(string $method, array $args): self {
-
-        $this->command->appendToCommand(strlen($method) > 1 ? '--' : '-');
-        $this->command->appendToCommand(str_replace('_', '-', $method), '');
+        $this->command->appendToCommand(str_replace('_', '-', $method));
         $this->command->appendToCommand(implode(' ', $args));
         return $this;
     }

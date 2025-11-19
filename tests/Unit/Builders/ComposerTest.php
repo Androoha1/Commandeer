@@ -15,7 +15,7 @@ class ComposerTest extends BuilderTestCase {
                 'composer require vendor1/package1 vendor2/package2',
             ],
             [
-                Composer::require('vendor1/package1', 'vendor2/package2', '--dev'),
+                Composer::require('vendor1/package1', 'vendor2/package2')->__dev(),
                 'composer require vendor1/package1 vendor2/package2 --dev',
             ],
         ];
