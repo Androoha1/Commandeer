@@ -11,13 +11,13 @@ abstract class Builder {
     protected bool $hasRun = false;
     private static bool $faked = false;
 
-    final public function __construct(string $command, array $args = []) {
-        $this->command = new ShellCommand(
-            implode(
-                ' ',
-                [static::getExecutableName(), $command, ...$args]
-            ),
+    final public function __construct(string $command = '', array $args = []) {
+        $parts = array_filter(
+            [static::getExecutableName(), $command, ...$args],
+            fn($part) => $part !== ''
         );
+
+        $this->command = new ShellCommand(implode(' ', $parts));
     }
 
     public function run(): ShellCommand {

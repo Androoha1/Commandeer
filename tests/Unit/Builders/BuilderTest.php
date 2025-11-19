@@ -4,44 +4,47 @@ declare(strict_types=1);
 
 namespace Tests\Unit\Builders;
 
-use Posternak\Commandeer\Builders\Builder;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
 use Tests\Unit\Builders\Mocks\SomeBuilder;
 use Tests\Unit\Builders\Mocks\BuilderWithOverriddenExecutableName;
 
-class BuilderTest extends TestCase {
-    #[Test]
-    #[DataProvider('dataForTest')]
-    public function fluentApiCraftsCorrectCommand(Builder $instance, $expectedCommand): void {
-        $this->assertSame($expectedCommand, $instance->getCommand());
-    }
-
+class BuilderTest extends BuilderTestCase {
     #[Test]
     public function getsOverriddenExecutableName(): void {
         $this->assertSame('overriddenName someCommand', BuilderWithOverriddenExecutableName::someCommand()->getCommand());
     }
 
-    public static function dataForTest(): array
+    public static function expectedCommands(): array
     {
         return [
+            [
+                new SomeBuilder(),
+                'somebuilder',
+            ],
             [
                 SomeBuilder::someCommand(),
                 'somebuilder someCommand',
             ],
             [
-                SomeBuilder::someCommand('commandArg')->__some_option('someArg')->__another_option('anotherArg'),
-                'somebuilder someCommand commandArg --some-option someArg --another-option anotherArg',
-            ],
-            [
-                SomeBuilder::someCommand()->_b('someArg'),
-                'somebuilder someCommand -b someArg',
-            ],
-            [
                 SomeBuilder::some_command(),
                 'somebuilder some-command',
-            ]
+            ],
+            [
+                SomeBuilder::someCommand('someArg'),
+                'somebuilder someCommand someArg',
+            ],
+            [
+                SomeBuilder::someCommand('someArg')->__some_option(),
+                'somebuilder someCommand someArg --some-option',
+            ],
+            [
+                SomeBuilder::someCommand()->__some_option('someOptionArg'),
+                'somebuilder someCommand --some-option someOptionArg',
+            ],
+            [
+                SomeBuilder::someCommand('someArg')->__some_option('someOptionArg')->__another_option('anotherOptionArg'),
+                'somebuilder someCommand someArg --some-option someOptionArg --another-option anotherOptionArg',
+            ],
         ];
     }
 }
