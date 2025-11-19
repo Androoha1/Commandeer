@@ -12,11 +12,12 @@ namespace Posternak\Commandeer\Builders;
  * @method static self push(string $remote, string $branch)
  * @method static self rev_parse()
  * @method static self status()
+ * @method _b(string $string)
  */
 final class Git extends Builder {
     private static string $commitMessagesPrefix = '';
     public static function checkoutNewBranch(string $branch): self {
-        return self::checkout()->b($branch);
+        return self::checkout()->_b($branch);
     }
 
     public static function addEverything(): self {

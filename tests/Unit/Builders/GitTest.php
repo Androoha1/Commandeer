@@ -15,7 +15,7 @@ class GitTest extends BuilderTestCase {
                 'git checkout main'
             ],
             [
-                Git::checkout()->b('someNewBranch'),
+                Git::checkout()->_b('someNewBranch'),
                 'git checkout -b someNewBranch'
             ],
             [

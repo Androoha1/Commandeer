@@ -31,11 +31,11 @@ class BuilderTest extends TestCase {
                 'somebuilder someCommand',
             ],
             [
-                SomeBuilder::someCommand('commandArg')->some_option('someArg')->another_option('anotherArg'),
+                SomeBuilder::someCommand('commandArg')->__some_option('someArg')->__another_option('anotherArg'),
                 'somebuilder someCommand commandArg --some-option someArg --another-option anotherArg',
             ],
             [
-                SomeBuilder::someCommand()->b('someArg'),
+                SomeBuilder::someCommand()->_b('someArg'),
                 'somebuilder someCommand -b someArg',
             ],
             [
