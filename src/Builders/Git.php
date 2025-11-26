@@ -43,14 +43,14 @@ final class Git extends Builder {
     }
 
     public static function isWorkingTreeClean(): bool {
-        return empty(Git::status()->porcelain()->run()->getOutput());
+        return  empty(Git::status()->__porcelain()->run()->getOutput());
     }
 
     public static function hasChanges(): bool {
         return !self::isWorkingTreeClean();
     }
 
-    public static function setCommitMessagesPrefix(string $prefix): void {
-        self::$commitMessagesPrefix = $prefix;
+    public static function setCommitMessagesPrefix(string $prefix, string $separator = ' '): void {
+        self::$commitMessagesPrefix = $prefix . $separator;
     }
 }
