@@ -11,6 +11,9 @@ abstract class Builder {
     protected bool $hasRun = false;
     protected static bool $faked = false;
 
+    /**
+     * @param list<string> $args
+     */
     final public function __construct(string $command = '', array $args = []) {
         $parts = array_filter(
             [static::getExecutableName(), $command, ...$args],
@@ -29,11 +32,17 @@ abstract class Builder {
         return $this->command->getCommand();
     }
 
+    /**
+     * @param list<string> $args
+     */
     public static function __callStatic(string $method, array $args): self
     {
         return new static(str_replace('_', '-', $method), $args);
     }
 
+    /**
+     * @param list<string> $args
+     */
     public function __call(string $method, array $args): self {
         $this->command->appendToCommand(str_replace('_', '-', $method));
         $this->command->appendToCommand(implode(' ', $args));

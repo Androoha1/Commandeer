@@ -8,12 +8,17 @@ use RuntimeException;
 
 final class ShellCommand {
     private string $command = '';
+    /** @var list<string> */
     private array $output = [];
     private int $result_code = 0;
 
     public function __construct(string $command = '') {
         $this->command = $command;
     }
+
+    /**
+     * @return list<string>
+     */
     public function getOutput(): array {
         return $this->output;
     }
