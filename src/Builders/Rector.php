@@ -6,6 +6,7 @@ namespace Posternak\Commandeer\Builders;
 
 /**
  * @method static self process()
+ * @method self __only(string $ruleName)
  * @method __clear_cache()
  */
 final class Rector extends Builder {
