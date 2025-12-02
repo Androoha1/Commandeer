@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Posternak\Commandeer\Builders;
 
 /**
- * @method static self process(...$args)
+ * @method static self process()
  * @method __clear_cache()
  */
 final class Rector extends Builder {

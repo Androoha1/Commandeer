@@ -12,7 +12,7 @@ namespace Posternak\Commandeer\Builders;
  * @method static self push(string $remote, string $branch)
  * @method static self rev_parse()
  * @method static self status()
- * @method self _b(string $string)
+ * @method self _b(string $branch)
  * @method self abbrev_ref(string $ref)
  * @method self __porcelain()
  */
