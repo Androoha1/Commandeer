@@ -9,7 +9,7 @@ use Posternak\Commandeer\ShellCommand;
 abstract class Builder {
     protected ShellCommand $command;
     protected bool $hasRun = false;
-    private static bool $faked = false;
+    protected static bool $faked = false;
 
     final public function __construct(string $command = '', array $args = []) {
         $parts = array_filter(

@@ -12,7 +12,9 @@ namespace Posternak\Commandeer\Builders;
  * @method static self push(string $remote, string $branch)
  * @method static self rev_parse()
  * @method static self status()
- * @method _b(string $string)
+ * @method self _b(string $string)
+ * @method self abbrev_ref(string $ref)
+ * @method self __porcelain()
  */
 final class Git extends Builder {
     private static string $commitMessagesPrefix = '';
