@@ -12,7 +12,7 @@ use Posternak\Commandeer\Builders\Builder;
 final class BuilderWithOverriddenExecutableName extends Builder {
     protected bool $hasRun = true;
 
-    protected static function getExecutableName(): string
+    protected function getExecutableName(): string
     {
         return 'overriddenName';
     }

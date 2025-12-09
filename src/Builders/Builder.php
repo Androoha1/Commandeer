@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Posternak\Commandeer\Builders;
 
 use Posternak\Commandeer\ShellCommand;
+use ReflectionClass;
 
 abstract class Builder {
+    protected ?string $executableName;
     protected ShellCommand $command;
     protected bool $hasRun = false;
     protected static bool $faked = false;
@@ -14,9 +16,12 @@ abstract class Builder {
     /**
      * @param list<string> $args
      */
-    final public function __construct(string $command = '', array $args = []) {
+    final public function __construct(string $command = '', array $args = [], ?string $executableName = null) {
+        if ($executableName !== null) {
+            $this->executableName = $executableName;
+        }
         $parts = array_filter(
-            [static::getExecutableName(), $command, ...$args],
+            [$this->getExecutableName(), $command, ...$args],
             fn($part) => $part !== ''
         );
 
@@ -33,11 +38,15 @@ abstract class Builder {
     }
 
     /**
-     * @param list<string> $args
+     * Get the executable name, deriving from class name if not explicitly set.
      */
-    public static function __callStatic(string $method, array $args): self
+    protected function getExecutableName(): string
     {
-        return new static(str_replace('_', '-', $method), $args);
+        return $this->executableName ?? strtolower(new ReflectionClass(static::class)->getShortName());
+    }
+
+    public static function fake(): void {
+        static::$faked = true;
     }
 
     /**
@@ -49,15 +58,12 @@ abstract class Builder {
         return $this;
     }
 
-    protected static function getExecutableName(): string
+    /**
+     * @param list<string> $args
+     */
+    public static function __callStatic(string $method, array $args): self
     {
-        $fullClass = static::class;
-        $className = substr($fullClass, strrpos($fullClass, '\\') + 1);
-        return strtolower($className);
-    }
-
-    public static function fake(): void {
-        static::$faked = true;
+        return new static(str_replace('_', '-', $method), $args);
     }
 
     public function __destruct() {

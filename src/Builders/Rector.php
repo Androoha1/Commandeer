@@ -10,8 +10,5 @@ namespace Posternak\Commandeer\Builders;
  * @method __clear_cache()
  */
 final class Rector extends Builder {
-    protected static function getExecutableName(): string
-    {
-        return 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'rector';
-    }
+    protected ?string $executableName = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'rector';
 }

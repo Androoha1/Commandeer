@@ -5,11 +5,9 @@ declare(strict_types=1);
 namespace Posternak\Commandeer\Builders;
 
 /**
- * @method static self analyse()
+ * @method static self analyse(...$args)
+ * @method self _vv()
  */
 final class PHPStan extends Builder {
-    protected static function getExecutableName(): string
-    {
-        return 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'phpstan';
-    }
+    protected ?string $executableName = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'phpstan';
 }
