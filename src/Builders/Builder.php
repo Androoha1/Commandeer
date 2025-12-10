@@ -45,8 +45,8 @@ abstract class Builder {
         return $this->executableName ?? strtolower(new ReflectionClass(static::class)->getShortName());
     }
 
-    public static function fake(): void {
-        static::$faked = true;
+    public static function fake(bool $fakeMode = true): void {
+        static::$faked = $fakeMode;
     }
 
     /**

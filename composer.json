@@ -9,6 +9,10 @@
             "email": "posternak.andrii1@gmail.com"
         }
     ],
+    "require": {
+        "ext-readline": "*",
+        "psy/psysh": "^0.12.16"
+    },
     "require-dev": {
         "phpunit/phpunit": "^12.4",
         "phpstan/phpstan": "^2.1"
@@ -25,5 +29,6 @@
     },
     "scripts": {
         "test": "phpunit --testdox"
-    }
+    },
+    "bin": ["bin/commandeer"]
 }
