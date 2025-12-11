@@ -10,7 +10,11 @@ use Throwable;
 
 class Shell {
     private string $mode = 'preview';
+    private const array MODES = ['preview', 'exec'];
 
+    /**
+     * The main REPL loop.
+     */
     public function run(): void {
         ShellOutput::welcome();
         Builder::fake();
@@ -19,7 +23,7 @@ class Shell {
             $input = $this->readline($this->getPrompt());
 
             if ($input === false || in_array($input, ['exit', 'quit'], true)) {
-                echo "Goodbye!\n";
+                ShellOutput::goodbye();
                 break;
             }
 
@@ -32,7 +36,7 @@ class Shell {
             try {
                 $this->displayResult($this->evaluate($input));
             } catch (Throwable $e) {
-                echo "\033[31mError: {$e->getMessage()}\033[0m\n";
+                ShellOutput::error($e->getMessage());
             }
         }
     }
@@ -42,19 +46,60 @@ class Shell {
     }
 
     private function handleSpecialCommand(string $input): bool {
+        // Handle cd command
+        if (str_starts_with($input, 'cd ')) {
+            $path = trim(substr($input, 3));
+            if (chdir($path)) {
+                return true;
+            } else {
+                ShellOutput::error("cd: no such directory: {$path}");
+                return true;
+            }
+        }
+
         return match($input) {
-            'mode preview', 'mode exec' => $this->setMode(explode(' ', $input)[1]),
+            'mode' => $this->selectMode(),
+            'help' => $this->showHelp(),
             'clear' => $this->clearScreen(),
             default => false,
         };
     }
 
-    private function setMode(string $mode): bool {
-        $this->mode = $mode;
-        echo "\033[33mSwitched to {$mode} mode\033[0m\n";
-        echo $mode === 'exec'
-            ? "Commands will now execute immediately.\n"
-            : "Commands will be previewed without execution.\n";
+    private function showHelp(): bool {
+        ShellOutput::help($this->mode);
+        return true;
+    }
+
+    private function selectMode(): bool {
+        $currentIndex = array_search($this->mode, self::MODES);
+        $selectedIndex = $currentIndex;
+
+        echo "\033[33mSelect mode:\033[0m\n";
+        foreach (self::MODES as $index => $mode) {
+            echo "  " . ($index + 1) . ") {$mode}" . ($index === $currentIndex ? " (current)" : "") . "\n";
+        }
+        echo "Enter number (1-" . count(self::MODES) . ") or press Enter to cancel: ";
+
+        $input = trim(fgets(STDIN));
+
+        if ($input === '') {
+            ShellOutput::cancelled();
+            return true;
+        }
+
+        $selection = (int)$input;
+
+        if ($selection < 1 || $selection > count(self::MODES)) {
+            ShellOutput::error("Invalid selection");
+            return true;
+        }
+
+        $newMode = self::MODES[$selection - 1];
+        if ($newMode !== $this->mode) {
+            $this->mode = $newMode;
+            ShellOutput::modeSwitch($newMode);
+        }
+
         return true;
     }
 
@@ -110,7 +155,7 @@ class Shell {
             if (!empty($output)) {
                 echo implode("\n", $output) . "\n";
             } else {
-                echo "\033[32m✓ Command executed successfully\033[0m\n";
+                ShellOutput::success();
             }
         } elseif (is_string($result)) {
             echo $result . "\n";
