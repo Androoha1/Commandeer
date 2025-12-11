@@ -44,9 +44,9 @@ class ShellOutput {
 
     public static function help(string $currentMode): void {
         Printer::newLine();
-        Printer::coloredText("You are currently in ", Color::GRAY);
+        Printer::coloredText("You are currently in the ", Color::GRAY);
         Printer::coloredText($currentMode, Color::YELLOW);
-        Printer::coloredLine(" mode", Color::GRAY);
+        Printer::coloredLine(" mode.", Color::GRAY);
         Printer::newLine();
 
         Printer::coloredLine("- Modes:", Color::SOFT_BLUE);
@@ -62,7 +62,7 @@ class ShellOutput {
         Printer::coloredText("  ·help", Color::YELLOW);
         Printer::line("     - You tried this just now.");
         Printer::coloredText("  ·cd", Color::YELLOW);
-        Printer::line("       - Change working directory");
+        Printer::line("       - Change working directory (available only in the exec mode)");
         Printer::coloredText("  ·exit", Color::YELLOW);
         Printer::line("     - Exit the shell");
         Printer::newLine();

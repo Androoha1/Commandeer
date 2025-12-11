@@ -47,6 +47,11 @@ class Shell {
 
     private function handleSpecialCommand(string $input): bool {
         if (str_starts_with($input, 'cd ')) {
+            if ($this->mode !== 'exec') {
+                ShellOutput::error("cd command is only available in exec mode");
+                return true;
+            }
+
             $path = trim(substr($input, 3));
             if (chdir($path)) {
                 return true;
