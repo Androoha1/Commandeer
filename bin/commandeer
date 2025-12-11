@@ -14,7 +14,7 @@ foreach ($autoloadPaths as $path) {
     }
 }
 
-use Posternak\Commandeer\Shell\CommandeerShell;
+use Posternak\Commandeer\Shell\Shell;
 
-$shell = new CommandeerShell();
+$shell = new Shell();
 $shell->run();

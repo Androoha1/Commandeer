@@ -8,11 +8,11 @@ use Posternak\Commandeer\Builders\Builder;
 use Posternak\Commandeer\ShellCommand;
 use Throwable;
 
-class CommandeerShell {
+class Shell {
     private string $mode = 'preview';
 
     public function run(): void {
-        $this->printWelcome();
+        ShellOutput::welcome();
         Builder::fake();
 
         while (true) {
@@ -43,7 +43,6 @@ class CommandeerShell {
 
     private function handleSpecialCommand(string $input): bool {
         return match($input) {
-            'help' => $this->showHelp(),
             'mode preview', 'mode exec' => $this->setMode(explode(' ', $input)[1]),
             'clear' => $this->clearScreen(),
             default => false,
@@ -120,38 +119,6 @@ class CommandeerShell {
         } else {
             var_dump($result);
         }
-    }
-
-    private function printWelcome(): void {
-        echo "\033[36m╔═══════════════════════════════════════╗\n";
-        echo         "║     Commandeer Interactive Shell      ║\n";
-        echo         "╚═══════════════════════════════════════╝\033[0m\n\n";
-        echo "Type 'help' for available commands.\n\n";
-    }
-
-    private function showHelp(): bool {
-        echo "\033[33mAvailable builders:\n";
-
-        foreach (glob(__DIR__ . '/../Builders/*.php') as $file) {
-            $className = basename($file, '.php');
-            if ($className !== 'Builder') {
-                echo "  {$className}::\n";
-            }
-        }
-
-        echo "\nExamples:\n";
-        echo "  Git::status()\n";
-        echo "  Cmd::docker()->ps()->_a()\n";
-        echo "  Composer::install()->__dev()\n\n";
-
-        echo "Commands:\n";
-        echo "  mode preview   - Preview commands (default)\n";
-        echo "  mode exec      - Execute commands immediately\n";
-        echo "  clear          - Clear screen\n";
-        echo "  help           - Show this help\n";
-        echo "  exit           - Exit shell\033[0m\n\n";
-
-        return true;
     }
 
     private function clearScreen(): bool {
