@@ -59,7 +59,6 @@ class Shell {
         return match($input) {
             'mode' => $this->selectMode(),
             'help' => $this->showHelp(),
-            'clear' => $this->clearScreen(),
             default => false,
         };
     }
@@ -163,11 +162,6 @@ class Shell {
         } else {
             var_dump($result);
         }
-    }
-
-    private function clearScreen(): bool {
-        echo "\033[2J\033[H";
-        return true;
     }
 
     private function readline(string $prompt): string|false {

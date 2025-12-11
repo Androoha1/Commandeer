@@ -61,8 +61,6 @@ class ShellOutput {
         Printer::line("     - Switch the current shell mode");
         Printer::coloredText("  ·help", Color::YELLOW);
         Printer::line("     - You tried this just now.");
-        Printer::coloredText("  ·clear", Color::YELLOW);
-        Printer::line("    - Clear the screen");
         Printer::coloredText("  ·cd", Color::YELLOW);
         Printer::line("       - Change working directory");
         Printer::coloredText("  ·exit", Color::YELLOW);
