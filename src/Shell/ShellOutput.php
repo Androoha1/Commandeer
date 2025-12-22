@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Posternak\Commandeer\Shell;
 
+use Posternak\ConsolePrinter\Color;
+use Posternak\ConsolePrinter\Printer;
+
 class ShellOutput {
     public function __construct(
         private readonly Printer $printer
