@@ -14,7 +14,9 @@ foreach ($autoloadPaths as $path) {
     }
 }
 
+use Posternak\Commandeer\Shell\Printer;
 use Posternak\Commandeer\Shell\Shell;
+use Posternak\Commandeer\Shell\ShellOutput;
 
-$shell = new Shell();
+$shell = new Shell(new Printer(), new ShellOutput(new Printer()));
 $shell->run();

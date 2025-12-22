@@ -5,74 +5,74 @@ declare(strict_types=1);
 namespace Posternak\Commandeer\Shell;
 
 class ShellOutput {
-    public static function welcome(): void {
-        Printer::newLine();
-        self::welcomeAsciiArt();
-        Printer::coloredLine("- Welcome to the Commandeer Interactive Shell!", Color::SOFT_BLUE);
-        Printer::coloredLine("- hint: Type 'help' if you are new here.", Color::SOFT_BLUE);
-        Printer::newLine();
+    public function __construct(
+        private readonly Printer $printer
+    ) {}
+
+    public function welcome(): void {
+        $this->printer->newLine();
+        $this->welcomeAsciiArt();
+        $this->printer->println("- Welcome to Commandeer Interactive Shell!", [Color::SOFT_BLUE]);
+        $this->printer->println("- hint: Type 'help' if you are new to it.", [Color::SOFT_BLUE]);
+        $this->printer->newLine();
     }
 
-    private static function welcomeAsciiArt(): void {
-        Printer::coloredLine(" ██████╗ ██████╗ ███╗   ███╗███╗   ███╗ █████╗ ███╗   ██╗██████╗ ███████╗███████╗██████╗ ", Color::SOFT_BLUE);
-        Printer::coloredLine("██╔════╝██╔═══██╗████╗ ████║████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝██╔════╝██╔══██╗", Color::SOFT_BLUE);
-        Printer::coloredLine("██║     ██║   ██║██╔████╔██║██╔████╔██║███████║██╔██╗ ██║██║  ██║█████╗  █████╗  ██████╔╝", Color::SOFT_BLUE);
-        Printer::coloredLine("██║     ██║   ██║██║╚██╔╝██║██║╚██╔╝██║██╔══██║██║╚██╗██║██║  ██║██╔══╝  ██╔══╝  ██╔══██╗", Color::SOFT_BLUE);
-        Printer::coloredLine("╚██████╗╚██████╔╝██║ ╚═╝ ██║██║ ╚═╝ ██║██║  ██║██║ ╚████║██████╔╝███████╗███████╗██║  ██║", Color::SOFT_BLUE);
-        Printer::coloredLine(" ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝", Color::SOFT_BLUE);
-        Printer::coloredLine("                                                                  by Andrii Posternak.", Color::GRAY);
+    private function welcomeAsciiArt(): void {
+        $this->printer->println(" ██████╗ ██████╗ ███╗   ███╗███╗   ███╗ █████╗ ███╗   ██╗██████╗ ███████╗███████╗██████╗ ", [Color::SOFT_BLUE]);
+        $this->printer->println("██╔════╝██╔═══██╗████╗ ████║████╗ ████║██╔══██╗████╗  ██║██╔══██╗██╔════╝██╔════╝██╔══██╗", [Color::SOFT_BLUE]);
+        $this->printer->println("██║     ██║   ██║██╔████╔██║██╔████╔██║███████║██╔██╗ ██║██║  ██║█████╗  █████╗  ██████╔╝", [Color::SOFT_BLUE]);
+        $this->printer->println("██║     ██║   ██║██║╚██╔╝██║██║╚██╔╝██║██╔══██║██║╚██╗██║██║  ██║██╔══╝  ██╔══╝  ██╔══██╗", [Color::SOFT_BLUE]);
+        $this->printer->println("╚██████╗╚██████╔╝██║ ╚═╝ ██║██║ ╚═╝ ██║██║  ██║██║ ╚████║██████╔╝███████╗███████╗██║  ██║", [Color::SOFT_BLUE]);
+        $this->printer->println(" ╚═════╝ ╚═════╝ ╚═╝     ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝", [Color::SOFT_BLUE]);
+        $this->printer->println("                                                                  by Andrii Posternak.", [Color::GRAY]);
     }
 
-    public static function error(string $message): void {
-        Printer::coloredLine("Error: {$message}", Color::RED);
+    public function error(string $message): void {
+        $this->printer->println("Error: {$message}", [Color::RED]);
     }
 
-    public static function success(): void {
-        Printer::coloredLine("✓ Command executed successfully", Color::GREEN);
+    public function success(): void {
+        $this->printer->println("✓ Command executed successfully", [Color::GREEN]);
     }
 
-    public static function modeSwitch(string $mode): void {
-        Printer::coloredLine("Switched to {$mode} mode", Color::YELLOW);
-        Printer::line($mode === 'exec'
+    public function modeSwitch(string $mode): void {
+        $this->printer->println("Switched to {$mode} mode", [Color::CYAN]);
+        $this->printer->println($mode === 'exec'
             ? "Commands will now execute immediately."
             : "Commands will be previewed without execution.");
     }
 
-    public static function cancelled(): void {
-        Printer::coloredLine("Cancelled", Color::GRAY);
+    public function cancelled(): void {
+        $this->printer->println("Cancelled", [Color::GRAY]);
     }
 
-    public static function help(string $currentMode): void {
-        Printer::newLine();
-        Printer::coloredText("You are currently in the ", Color::GRAY);
-        Printer::coloredText($currentMode, Color::YELLOW);
-        Printer::coloredLine(" mode.", Color::GRAY);
-        Printer::newLine();
+    public function help(string $currentMode): void {
+        $this->printer->newLine();
+        $this->printer->println("{You are currently in the {someWord} mode}", [Color::SOFT_BLUE, Color::CYAN]);
+        $this->printer->newLine();
 
-        Printer::coloredLine("- Modes:", Color::SOFT_BLUE);
-        Printer::coloredText("  ·preview", Color::YELLOW);
-        Printer::line("  - Build commands and preview without execution");
-        Printer::coloredText("  ·exec", Color::YELLOW);
-        Printer::line("     - Execute commands immediately and show output");
-        Printer::newLine();
+        $this->printer->println("- Modes:", [Color::CYAN]);
+        $this->printer->println("  ·{preview}  - Build commands and preview without execution", [Color::SOFT_BLUE]);
+        $this->printer->println("  ·{exec}     - Execute commands immediately and show output", [Color::SOFT_BLUE]);
+        $this->printer->newLine();
 
-        Printer::coloredLine("- Commands:", Color::SOFT_BLUE);
-        Printer::coloredText("  ·mode", Color::YELLOW);
-        Printer::line("     - Switch the current shell mode");
-        Printer::coloredText("  ·help", Color::YELLOW);
-        Printer::line("     - You tried this just now.");
-        Printer::coloredText("  ·cd", Color::YELLOW);
-        Printer::line("       - Change working directory (available only in the exec mode)");
-        Printer::coloredText("  ·exit", Color::YELLOW);
-        Printer::line("     - Exit the shell");
-        Printer::newLine();
+        $this->printer->println("- Commands:", [Color::CYAN]);
+        $this->printer->println("  ·{mode}     - Switch the current shell mode", [Color::SOFT_BLUE]);
+        $this->printer->println("  ·{help}     - Display this help message", [Color::SOFT_BLUE]);
 
-        Printer::coloredLine("- Available builders:", Color::SOFT_BLUE);
-        Printer::line("  Git, Cmd, Composer, Artisan, PHPStan, Rector, Php, PHPCsFixer");
-        Printer::newLine();
+        if ($currentMode === 'exec') {
+            $this->printer->println("  ·{cd}       - Change working directory (exec mode only)", [Color::SOFT_BLUE]);
+        }
+
+        $this->printer->println("  ·{exit}     - Exit the shell", [Color::SOFT_BLUE]);
+        $this->printer->newLine();
+
+        $this->printer->println("- Available builders:", [Color::CYAN]);
+        $this->printer->println("  Git, Cmd, Composer, Artisan, PHPStan, Rector, Php, PHPCsFixer");
+        $this->printer->newLine();
     }
 
-    public static function goodbye(): void {
-        Printer::coloredLine("Goodbye! Go and write some nice script!", Color::CYAN);
+    public function goodbye(): void {
+        $this->printer->println("Goodbye! Go and write some nice script!", [Color::SOFT_BLUE]);
     }
 }

@@ -6,7 +6,7 @@ namespace Posternak\Commandeer\Shell;
 
 enum Color: string {
     case SOFT_BLUE = "\033[38;5;67m";
-    case CYAN = "\033[36m";
+    case CYAN = "\033[96m";
     case YELLOW = "\033[93m";
     case GREEN = "\033[32m";
     case RED = "\033[31m";

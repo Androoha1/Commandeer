@@ -12,18 +12,20 @@ class Shell {
     private string $mode = 'preview';
     private const array MODES = ['preview', 'exec'];
 
-    /**
-     * The main REPL loop.
-     */
+    public function __construct(
+        private readonly Printer $printer,
+        private readonly ShellOutput $output
+    ) {}
+
     public function run(): void {
-        ShellOutput::welcome();
+        $this->output->welcome();
         Builder::fake();
 
         while (true) {
             $input = $this->readline($this->getPrompt());
 
             if ($input === false || in_array($input, ['exit', 'quit'], true)) {
-                ShellOutput::goodbye();
+                $this->output->goodbye();
                 break;
             }
 
@@ -36,7 +38,7 @@ class Shell {
             try {
                 $this->displayResult($this->evaluate($input));
             } catch (Throwable $e) {
-                ShellOutput::error($e->getMessage());
+                $this->output->error($e->getMessage());
             }
         }
     }
@@ -48,7 +50,7 @@ class Shell {
     private function handleSpecialCommand(string $input): bool {
         if (str_starts_with($input, 'cd ')) {
             if ($this->mode !== 'exec') {
-                ShellOutput::error("cd command is only available in exec mode");
+                $this->output->error("cd command is only available in exec mode");
                 return true;
             }
 
@@ -56,7 +58,7 @@ class Shell {
             if (chdir($path)) {
                 return true;
             } else {
-                ShellOutput::error("cd: no such directory: {$path}");
+                $this->output->error("cd: no such directory: {$path}");
                 return true;
             }
         }
@@ -69,38 +71,38 @@ class Shell {
     }
 
     private function showHelp(): bool {
-        ShellOutput::help($this->mode);
+        $this->output->help($this->mode);
         return true;
     }
 
     private function selectMode(): bool {
         $currentIndex = array_search($this->mode, self::MODES);
-        $selectedIndex = $currentIndex;
 
-        echo "\033[33mSelect mode:\033[0m\n";
+        $this->printer->println("Select mode:", [Color::CYAN]);
         foreach (self::MODES as $index => $mode) {
-            echo "  " . ($index + 1) . ") {$mode}" . ($index === $currentIndex ? " (current)" : "") . "\n";
+            $current = $index === $currentIndex ? " (current)" : "";
+            $this->printer->println("  " . ($index + 1) . ") {$mode}$current");
         }
-        echo "Enter number (1-" . count(self::MODES) . ") or press Enter to cancel: ";
+        $this->printer->print("Enter number (1-" . count(self::MODES) . ") or press Enter to cancel: ");
 
         $input = trim(fgets(STDIN));
 
         if ($input === '') {
-            ShellOutput::cancelled();
+            $this->output->cancelled();
             return true;
         }
 
         $selection = (int)$input;
 
         if ($selection < 1 || $selection > count(self::MODES)) {
-            ShellOutput::error("Invalid selection");
+            $this->output->error("Invalid selection");
             return true;
         }
 
         $newMode = self::MODES[$selection - 1];
         if ($newMode !== $this->mode) {
             $this->mode = $newMode;
-            ShellOutput::modeSwitch($newMode);
+            $this->output->modeSwitch($newMode);
         }
 
         return true;
@@ -152,13 +154,12 @@ class Shell {
             return;
         }
 
-        // Exec mode
         if ($result instanceof ShellCommand) {
             $output = $result->getOutput();
             if (!empty($output)) {
                 echo implode("\n", $output) . "\n";
             } else {
-                ShellOutput::success();
+                $this->output->success();
             }
         } elseif (is_string($result)) {
             echo $result . "\n";
