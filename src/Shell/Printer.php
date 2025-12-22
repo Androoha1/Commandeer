@@ -24,7 +24,7 @@ class Printer {
      */
     public function println(string $text, array $colors = []): void {
         $this->print($text, $colors);
-        echo "\n";
+        self::newLine();
     }
 
     public function newLine(): void {
