@@ -51,7 +51,7 @@ class ShellOutput {
 
     public function help(string $currentMode): void {
         $this->printer->newLine();
-        $this->printer->println("{You are currently in the {someWord} mode}", [Color::SOFT_BLUE, Color::CYAN]);
+        $this->printer->println("{You are currently in the {{$currentMode}} mode}", [Color::SOFT_BLUE, Color::CYAN]);
         $this->printer->newLine();
 
         $this->printer->println("- Modes:", [Color::CYAN]);
