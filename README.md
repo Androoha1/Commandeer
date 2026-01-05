@@ -1,6 +1,6 @@
 # Commandeer
 
-A fluent PHP library for building and executing shell commands programmatically.
+A fluent PHP library for building and executing shell commands programmatically, for taking them under control, or in other words - commandeer them.
 
 ## Installation
 
@@ -37,19 +37,30 @@ if ($command->succeeded()) {
 
 ## Cmd Builder - Universal Command Builder
 
-Build any command fluently using the `Cmd` class:
+The `Cmd` class provides a universal interface for building any shell command. To construct a command:
+
+1. Start with the `Cmd` class
+2. Call a static method whose name matches your desired executable (e.g., `Cmd::docker()` for the `docker` executable)
+3. Chain additional methods for CLI options and arguments, passing data as method parameters
+
+Method names are automatically converted to command-line syntax (underscores become dashes), and method arguments become command parameters.
+
+**Examples:**
 
 ```php
 use Posternak\Commandeer\Builders\Cmd;
 
-// The static method name becomes the executable
+// docker ps -a
 Cmd::docker()->ps()->_a()->run();
+
+// kubectl get pods -o json
 Cmd::kubectl()->get('pods')->_o('json')->run();
+
+// npm install
 Cmd::npm()->install()->run();
 
-// Method chaining builds the command
-// Underscores convert to dashes for options
-Cmd::git()->log()->pretty('oneline')->run(); // git log --pretty oneline
+// git log --pretty oneline
+Cmd::git()->log()->pretty('oneline')->run();
 ```
 
 **API:**
