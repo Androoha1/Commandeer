@@ -6,6 +6,7 @@ namespace Posternak\Commandeer\Shell;
 
 use Posternak\Commandeer\Builders\Builder;
 use Posternak\Commandeer\ShellCommand;
+use Posternak\ConsolePrinter\Color;
 use Posternak\ConsolePrinter\Printer;
 use Throwable;
 
