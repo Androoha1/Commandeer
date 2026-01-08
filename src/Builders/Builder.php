@@ -12,6 +12,10 @@ abstract class Builder {
     protected ShellCommand $command;
     protected bool $hasRun = false;
     protected static bool $faked = false;
+    /**
+     * @var list<int>
+     */
+    protected array $acceptableExitCodes = [0];
 
     /**
      * @param list<string> $args
@@ -30,6 +34,7 @@ abstract class Builder {
 
     public function run(): ShellCommand {
         $this->hasRun = true;
+        $this->command->setAcceptableExitCodes($this->acceptableExitCodes);
         return $this->command->run();
     }
 

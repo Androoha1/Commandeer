@@ -11,4 +11,5 @@ namespace Posternak\Commandeer\Builders;
  */
 final class Rector extends Builder {
     protected ?string $executableName = 'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'rector';
+    protected array $acceptableExitCodes = [0, 2];
 }
