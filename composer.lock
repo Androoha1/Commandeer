@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "98b7ce17ea396d706498e23fc37090ed",
+    "content-hash": "8050fc47fef1b3c951bdcba453d6eb11",
     "packages": [
         {
             "name": "posternak/console-printer",
@@ -1790,6 +1790,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
+        "php": "^8.4",
         "ext-readline": "*"
     },
     "platform-dev": {},
