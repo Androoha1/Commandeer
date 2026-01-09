@@ -11,9 +11,9 @@ use PHPUnit\Framework\TestCase;
 final class ShellCommandTest extends TestCase {
     #[Test]
     public function appendsStringToCommand(): void {
-        $command = new ShellCommand();
-        $command->appendToCommand('someString', '');
+        $shellCommand = new ShellCommand();
+        $shellCommand->appendToCommand('someString', '');
 
-        $this->assertSame('someString', $command->getCommand());
+        $this->assertSame('someString', $shellCommand->getCommand());
     }
 }
