@@ -161,7 +161,7 @@ class Shell {
 
         if ($result instanceof ShellCommand) {
             $output = $result->getOutput();
-            if (!empty($output)) {
+            if ($output !== []) {
                 echo implode("\n", $output) . "\n";
             } else {
                 $this->output->success();
