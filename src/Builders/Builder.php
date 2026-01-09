@@ -72,7 +72,7 @@ abstract class Builder {
     }
 
     public function __destruct() {
-        if (!(self::$faked || $this->hasRun)) {
+        if (!self::$faked && !$this->hasRun) {
             $this->run();
         }
     }
