@@ -36,6 +36,7 @@ class Shell {
             if ($input === '') {
                 continue;
             }
+
             if ($this->handleSpecialCommand($input)) {
                 continue;
             }
@@ -63,6 +64,7 @@ class Shell {
             if (chdir($path)) {
                 return true;
             }
+
             $this->shellOutput->error('cd: no such directory: ' . $path);
             return true;
         }
