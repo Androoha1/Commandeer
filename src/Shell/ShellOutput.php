@@ -31,7 +31,7 @@ class ShellOutput {
     }
 
     public function error(string $message): void {
-        $this->printer->println("Error: {$message}", [Color::RED]);
+        $this->printer->println('Error: ' . $message, [Color::RED]);
     }
 
     public function success(): void {
@@ -39,7 +39,7 @@ class ShellOutput {
     }
 
     public function modeSwitch(string $mode): void {
-        $this->printer->println("Switched to {$mode} mode", [Color::CYAN]);
+        $this->printer->println(sprintf('Switched to %s mode', $mode), [Color::CYAN]);
         $this->printer->println($mode === 'exec'
             ? "Commands will now execute immediately."
             : "Commands will be previewed without execution.");
@@ -51,7 +51,7 @@ class ShellOutput {
 
     public function help(string $currentMode): void {
         $this->printer->newLine();
-        $this->printer->println("{You are currently in the {{$currentMode}} mode}", [Color::SOFT_BLUE, Color::CYAN]);
+        $this->printer->println(sprintf('{You are currently in the {%s} mode}', $currentMode), [Color::SOFT_BLUE, Color::CYAN]);
         $this->printer->newLine();
 
         $this->printer->println("- Modes:", [Color::CYAN]);

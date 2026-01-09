@@ -61,7 +61,7 @@ class Shell {
             if (chdir($path)) {
                 return true;
             } else {
-                $this->output->error("cd: no such directory: {$path}");
+                $this->output->error('cd: no such directory: ' . $path);
                 return true;
             }
         }
@@ -84,7 +84,7 @@ class Shell {
         $this->printer->println("Select mode:", [Color::CYAN]);
         foreach (self::MODES as $index => $mode) {
             $current = $index === $currentIndex ? " (current)" : "";
-            $this->printer->println("  " . ($index + 1) . ") {$mode}$current");
+            $this->printer->println("  " . ($index + 1) . sprintf(') %s%s', $mode, $current));
         }
         
         $this->printer->print("Enter number (1-" . count(self::MODES) . ") or press Enter to cancel: ");
@@ -129,7 +129,7 @@ class Shell {
             ");
         }
 
-        return eval("{$useStatements} return {$code};");
+        return eval(sprintf('%s return %s;', $useStatements, $code));
     }
 
     private function generateUseStatements(): string {
@@ -138,7 +138,7 @@ class Shell {
         foreach (glob(__DIR__ . '/../Builders/*.php') as $file) {
             $className = basename($file, '.php');
             if ($className !== 'Builder') {
-                $statements[] = "use Posternak\\Commandeer\\Builders\\{$className};";
+                $statements[] = sprintf('use Posternak\Commandeer\Builders\%s;', $className);
             }
         }
 
