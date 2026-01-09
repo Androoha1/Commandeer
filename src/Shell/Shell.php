@@ -33,8 +33,10 @@ class Shell {
             }
 
             $input = trim($input);
-
-            if ($input === '' || $this->handleSpecialCommand($input)) {
+            if ($input === '') {
+                continue;
+            }
+            if ($this->handleSpecialCommand($input)) {
                 continue;
             }
 
