@@ -17,18 +17,18 @@ class Shell {
 
     public function __construct(
         private readonly Printer $printer,
-        private readonly ShellOutput $output
+        private readonly ShellOutput $shellOutput
     ) {}
 
     public function run(): void {
-        $this->output->welcome();
+        $this->shellOutput->welcome();
         Builder::fake();
 
         while (true) {
             $input = $this->readline($this->getPrompt());
 
             if ($input === false || in_array($input, ['exit', 'quit'], true)) {
-                $this->output->goodbye();
+                $this->shellOutput->goodbye();
                 break;
             }
 
@@ -43,7 +43,7 @@ class Shell {
             try {
                 $this->displayResult($this->evaluate($input));
             } catch (Throwable $e) {
-                $this->output->error($e->getMessage());
+                $this->shellOutput->error($e->getMessage());
             }
         }
     }
@@ -55,7 +55,7 @@ class Shell {
     private function handleSpecialCommand(string $input): bool {
         if (str_starts_with($input, 'cd ')) {
             if ($this->mode !== 'exec') {
-                $this->output->error("cd command is only available in exec mode");
+                $this->shellOutput->error("cd command is only available in exec mode");
                 return true;
             }
 
@@ -63,7 +63,7 @@ class Shell {
             if (chdir($path)) {
                 return true;
             }
-            $this->output->error('cd: no such directory: ' . $path);
+            $this->shellOutput->error('cd: no such directory: ' . $path);
             return true;
         }
 
@@ -75,7 +75,7 @@ class Shell {
     }
 
     private function showHelp(): bool {
-        $this->output->help($this->mode);
+        $this->shellOutput->help($this->mode);
         return true;
     }
 
@@ -93,21 +93,21 @@ class Shell {
         $input = trim(fgets(STDIN));
 
         if ($input === '') {
-            $this->output->cancelled();
+            $this->shellOutput->cancelled();
             return true;
         }
 
         $selection = (int)$input;
 
         if ($selection < 1 || $selection > count(self::MODES)) {
-            $this->output->error("Invalid selection");
+            $this->shellOutput->error("Invalid selection");
             return true;
         }
 
         $newMode = self::MODES[$selection - 1];
         if ($newMode !== $this->mode) {
             $this->mode = $newMode;
-            $this->output->modeSwitch($newMode);
+            $this->shellOutput->modeSwitch($newMode);
         }
 
         return true;
@@ -165,7 +165,7 @@ class Shell {
             if ($output !== []) {
                 echo implode("\n", $output) . "\n";
             } else {
-                $this->output->success();
+                $this->shellOutput->success();
             }
         } elseif (is_string($result)) {
             echo $result . "\n";
