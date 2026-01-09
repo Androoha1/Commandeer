@@ -62,10 +62,9 @@ class Shell {
             $path = trim(substr($input, 3));
             if (chdir($path)) {
                 return true;
-            } else {
-                $this->output->error('cd: no such directory: ' . $path);
-                return true;
             }
+            $this->output->error('cd: no such directory: ' . $path);
+            return true;
         }
 
         return match($input) {
