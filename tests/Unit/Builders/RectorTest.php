@@ -7,7 +7,7 @@ namespace Builders;
 use Posternak\Commandeer\Builders\Rector;
 use Tests\Unit\Builders\BuilderTestCase;
 
-class RectorTest extends BuilderTestCase {
+final class RectorTest extends BuilderTestCase {
     public static function expectedCommands(): array
     {
         return [

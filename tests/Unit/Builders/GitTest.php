@@ -6,7 +6,7 @@ namespace Tests\Unit\Builders;
 
 use Posternak\Commandeer\Builders\Git;
 
-class GitTest extends BuilderTestCase {
+final class GitTest extends BuilderTestCase {
     public static function expectedCommands(): array
     {
         return [

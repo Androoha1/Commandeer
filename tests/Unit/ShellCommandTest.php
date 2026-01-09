@@ -8,7 +8,7 @@ use Posternak\Commandeer\ShellCommand;
 use PHPUnit\Framework\Attributes\Test;
 use PHPUnit\Framework\TestCase;
 
-class ShellCommandTest extends TestCase {
+final class ShellCommandTest extends TestCase {
     #[Test]
     public function appendsStringToCommand(): void {
         $command = new ShellCommand();

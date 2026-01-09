@@ -7,7 +7,7 @@ namespace Builders;
 use Posternak\Commandeer\Builders\PHPStan;
 use Tests\Unit\Builders\BuilderTestCase;
 
-class PHPStanTest extends BuilderTestCase {
+final class PHPStanTest extends BuilderTestCase {
     public static function expectedCommands(): array
     {
         return [

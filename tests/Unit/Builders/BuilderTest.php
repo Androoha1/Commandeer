@@ -8,7 +8,7 @@ use PHPUnit\Framework\Attributes\Test;
 use Tests\Unit\Builders\Mocks\SomeBuilder;
 use Tests\Unit\Builders\Mocks\BuilderWithOverriddenExecutableName;
 
-class BuilderTest extends BuilderTestCase {
+final class BuilderTest extends BuilderTestCase {
     #[Test]
     public function getsOverriddenExecutableName(): void {
         $this->assertSame('overriddenName someCommand', BuilderWithOverriddenExecutableName::someCommand()->getCommand());

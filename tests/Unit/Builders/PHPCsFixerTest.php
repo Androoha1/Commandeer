@@ -7,7 +7,7 @@ namespace Builders;
 use Posternak\Commandeer\Builders\PHPCsFixer;
 use Tests\Unit\Builders\BuilderTestCase;
 
-class PHPCsFixerTest extends BuilderTestCase {
+final class PHPCsFixerTest extends BuilderTestCase {
     public static function expectedCommands(): array
     {
         return [

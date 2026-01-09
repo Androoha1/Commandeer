@@ -6,7 +6,7 @@ namespace Tests\Unit\Builders;
 
 use Posternak\Commandeer\Builders\Composer;
 
-class ComposerTest extends BuilderTestCase {
+final class ComposerTest extends BuilderTestCase {
     public static function expectedCommands(): array
     {
         return [

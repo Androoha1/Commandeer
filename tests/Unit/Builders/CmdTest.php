@@ -7,7 +7,7 @@ namespace Builders;
 use Posternak\Commandeer\Builders\Cmd;
 use Tests\Unit\Builders\BuilderTestCase;
 
-class CmdTest extends BuilderTestCase {
+final class CmdTest extends BuilderTestCase {
     public static function expectedCommands(): array
     {
         return [
