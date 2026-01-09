@@ -9,9 +9,13 @@ use ReflectionClass;
 
 abstract class Builder {
     protected ?string $executableName;
+    
     protected ShellCommand $command;
+    
     protected bool $hasRun = false;
+    
     protected static bool $faked = false;
+    
     /**
      * @var list<int>
      */
@@ -24,6 +28,7 @@ abstract class Builder {
         if ($executableName !== null) {
             $this->executableName = $executableName;
         }
+        
         $parts = array_filter(
             [$this->getExecutableName(), $command, ...$args],
             fn($part) => $part !== ''

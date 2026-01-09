@@ -18,6 +18,7 @@ namespace Posternak\Commandeer\Builders;
  */
 final class Git extends Builder {
     private static string $commitMessagesPrefix = '';
+    
     public static function checkoutNewBranch(string $branch): self {
         return self::checkout()->_b($branch);
     }

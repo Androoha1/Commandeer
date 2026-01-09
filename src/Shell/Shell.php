@@ -12,6 +12,7 @@ use Throwable;
 
 class Shell {
     private string $mode = 'preview';
+    
     private const array MODES = ['preview', 'exec'];
 
     public function __construct(
@@ -85,6 +86,7 @@ class Shell {
             $current = $index === $currentIndex ? " (current)" : "";
             $this->printer->println("  " . ($index + 1) . ") {$mode}$current");
         }
+        
         $this->printer->print("Enter number (1-" . count(self::MODES) . ") or press Enter to cancel: ");
 
         $input = trim(fgets(STDIN));
@@ -153,6 +155,7 @@ class Shell {
             } else {
                 var_dump($result);
             }
+            
             return;
         }
 
@@ -177,6 +180,7 @@ class Shell {
         if ($input !== false && $input !== '') {
             readline_add_history($input);
         }
+        
         return $input;
     }
 }

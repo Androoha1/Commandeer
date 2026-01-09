@@ -10,11 +10,15 @@ use RuntimeException;
 
 final class ShellCommand {
     private string $command = '';
+    
     /** @var list<string> */
     private array $output = [];
+    
     private int $result_code = 0;
+    
     /** @var list<int>  */
     private array $acceptableExitCodes = [0];
+    
     private static bool $verbose = false;
 
     public function __construct(string $command = '') {
@@ -28,6 +32,7 @@ final class ShellCommand {
         if (self::$verbose) {
             new Printer()->println('{Commandeer info} - Executing {' . $this->command . '}:', [Color::SOFT_BLUE, Color::YELLOW]);
         }
+        
         exec($this->command, $this->output, $this->result_code);
         if (!$this->succeeded()) {
             throw new RuntimeException(
@@ -39,6 +44,7 @@ final class ShellCommand {
                 )
             );
         }
+        
         return $this;
     }
 
