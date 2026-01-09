@@ -79,7 +79,7 @@ class Shell {
     }
 
     private function selectMode(): bool {
-        $currentIndex = array_search($this->mode, self::MODES);
+        $currentIndex = array_search($this->mode, self::MODES, true);
 
         $this->printer->println("Select mode:", [Color::CYAN]);
         foreach (self::MODES as $index => $mode) {
