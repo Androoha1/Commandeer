@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Posternak\Commandeer\Builders;
 
 /**
- * @method static self process()
+ * @method static self process(string ...$pathsToAnalyse)
  * @method self __only(string $ruleName)
  * @method __clear_cache()
  */
