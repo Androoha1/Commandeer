@@ -12,9 +12,9 @@ use PHPUnit\Framework\TestCase;
 abstract class BuilderTestCase extends TestCase {
     #[Test]
     #[DataProvider('expectedCommands')]
-    public function fluentApiCraftsCorrectCommand(Builder $instance, string $expectedCommand): void {
+    public function fluentApiCraftsCorrectCommand(Builder $builder, string $expectedCommand): void {
         Builder::fake();
-        $this->assertSame($expectedCommand, $instance->getCommand());
+        $this->assertSame($expectedCommand, $builder->getCommand());
     }
 
     /**
