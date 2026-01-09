@@ -31,7 +31,7 @@ abstract class Builder {
         
         $parts = array_filter(
             [$this->getExecutableName(), $command, ...$args],
-            fn($part) => $part !== ''
+            fn($part): bool => $part !== ''
         );
 
         $this->command = new ShellCommand(implode(' ', $parts));
