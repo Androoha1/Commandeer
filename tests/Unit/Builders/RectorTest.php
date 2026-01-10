@@ -7,13 +7,11 @@ namespace Tests\Unit\Builders;
 use Posternak\Commandeer\Builders\Rector;
 
 final class RectorTest extends BuilderTestCase {
-    public static function expectedCommands(): array
+    public static function expectedCommands(): \Iterator
     {
-        return [
-            [
-                Rector::process(),
-                'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'rector' . ' process'
-            ],
+        yield [
+            Rector::process(),
+            'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'rector' . ' process'
         ];
     }
 }

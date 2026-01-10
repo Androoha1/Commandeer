@@ -7,17 +7,15 @@ namespace Tests\Unit\Builders;
 use Posternak\Commandeer\Builders\Composer;
 
 final class ComposerTest extends BuilderTestCase {
-    public static function expectedCommands(): array
+    public static function expectedCommands(): \Iterator
     {
-        return [
-            [
-                Composer::require('vendor1/package1', 'vendor2/package2'),
-                'composer require vendor1/package1 vendor2/package2',
-            ],
-            [
-                Composer::require('vendor1/package1', 'vendor2/package2')->__dev(),
-                'composer require vendor1/package1 vendor2/package2 --dev',
-            ],
+        yield [
+            Composer::require('vendor1/package1', 'vendor2/package2'),
+            'composer require vendor1/package1 vendor2/package2',
+        ];
+        yield [
+            Composer::require('vendor1/package1', 'vendor2/package2')->__dev(),
+            'composer require vendor1/package1 vendor2/package2 --dev',
         ];
     }
 }

@@ -17,8 +17,5 @@ abstract class BuilderTestCase extends TestCase {
         $this->assertSame($expectedCommand, $builder->getCommand());
     }
 
-    /**
-     * @return array<array{Builder, string}>
-     */
-    abstract public static function expectedCommands(): array;
+    abstract public static function expectedCommands(): \Iterator;
 }

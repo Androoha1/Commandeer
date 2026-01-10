@@ -7,13 +7,11 @@ namespace Tests\Unit\Builders;
 use Posternak\Commandeer\Builders\Artisan;
 
 final class ArtisanTest extends BuilderTestCase {
-    public static function expectedCommands(): array
+    public static function expectedCommands(): \Iterator
     {
-        return [
-            [
-                Artisan::migrate(),
-                'php artisan migrate',
-            ],
+        yield [
+            Artisan::migrate(),
+            'php artisan migrate',
         ];
     }
 }

@@ -14,37 +14,35 @@ final class BuilderTest extends BuilderTestCase {
         $this->assertSame('overriddenName someCommand', BuilderWithOverriddenExecutableName::someCommand()->getCommand());
     }
 
-    public static function expectedCommands(): array
+    public static function expectedCommands(): \Iterator
     {
-        return [
-            [
-                new SomeBuilder(),
-                'somebuilder',
-            ],
-            [
-                SomeBuilder::someCommand(),
-                'somebuilder someCommand',
-            ],
-            [
-                SomeBuilder::some_command(),
-                'somebuilder some-command',
-            ],
-            [
-                SomeBuilder::someCommand('someArg'),
-                'somebuilder someCommand someArg',
-            ],
-            [
-                SomeBuilder::someCommand('someArg')->__some_option(),
-                'somebuilder someCommand someArg --some-option',
-            ],
-            [
-                SomeBuilder::someCommand()->__some_option('someOptionArg'),
-                'somebuilder someCommand --some-option someOptionArg',
-            ],
-            [
-                SomeBuilder::someCommand('someArg')->__some_option('someOptionArg')->__another_option('anotherOptionArg'),
-                'somebuilder someCommand someArg --some-option someOptionArg --another-option anotherOptionArg',
-            ],
+        yield [
+            new SomeBuilder(),
+            'somebuilder',
+        ];
+        yield [
+            SomeBuilder::someCommand(),
+            'somebuilder someCommand',
+        ];
+        yield [
+            SomeBuilder::some_command(),
+            'somebuilder some-command',
+        ];
+        yield [
+            SomeBuilder::someCommand('someArg'),
+            'somebuilder someCommand someArg',
+        ];
+        yield [
+            SomeBuilder::someCommand('someArg')->__some_option(),
+            'somebuilder someCommand someArg --some-option',
+        ];
+        yield [
+            SomeBuilder::someCommand()->__some_option('someOptionArg'),
+            'somebuilder someCommand --some-option someOptionArg',
+        ];
+        yield [
+            SomeBuilder::someCommand('someArg')->__some_option('someOptionArg')->__another_option('anotherOptionArg'),
+            'somebuilder someCommand someArg --some-option someOptionArg --another-option anotherOptionArg',
         ];
     }
 }

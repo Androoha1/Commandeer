@@ -7,13 +7,11 @@ namespace Tests\Unit\Builders;
 use Posternak\Commandeer\Builders\PHPStan;
 
 final class PHPStanTest extends BuilderTestCase {
-    public static function expectedCommands(): array
+    public static function expectedCommands(): \Iterator
     {
-        return [
-            [
-                PHPStan::analyse()->_vv(),
-                'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'phpstan' . ' analyse -vv'
-            ],
+        yield [
+            PHPStan::analyse()->_vv(),
+            'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'phpstan' . ' analyse -vv'
         ];
     }
 }

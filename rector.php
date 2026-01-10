@@ -12,7 +12,6 @@ return RectorConfig::configure()
     ->withSkip([
         __DIR__ . '/vendor',
         __DIR__ . '/cache',
-        Rector\PHPUnit\CodeQuality\Rector\Class_\YieldDataProviderRector::class,
     ])
     ->withPreparedSets(
         deadCode: true,

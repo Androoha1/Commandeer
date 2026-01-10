@@ -7,13 +7,11 @@ namespace Tests\Unit\Builders;
 use Posternak\Commandeer\Builders\PHPCsFixer;
 
 final class PHPCsFixerTest extends BuilderTestCase {
-    public static function expectedCommands(): array
+    public static function expectedCommands(): \Iterator
     {
-        return [
-            [
-                PHPCsFixer::fix(),
-                'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'php-cs-fixer' . ' fix'
-            ],
+        yield [
+            PHPCsFixer::fix(),
+            'vendor' . DIRECTORY_SEPARATOR . 'bin' . DIRECTORY_SEPARATOR . 'php-cs-fixer' . ' fix'
         ];
     }
 }
