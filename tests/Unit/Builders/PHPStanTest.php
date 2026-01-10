@@ -2,10 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Builders;
+namespace Tests\Unit\Builders;
 
 use Posternak\Commandeer\Builders\PHPStan;
-use Tests\Unit\Builders\BuilderTestCase;
 
 final class PHPStanTest extends BuilderTestCase {
     public static function expectedCommands(): array
