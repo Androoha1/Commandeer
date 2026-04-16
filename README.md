@@ -95,6 +95,16 @@ Git::commitWithMessage('feat: add feature'); // git commit -m "..."
 Git::pushToOrigin('main'); // git push origin main
 ```
 
+## Interactive Shell (REPL)
+
+Commandeer ships with an interactive shell for exploring and running commands without writing a PHP script. All builder classes are available automatically — no `use` statements needed.
+
+```bash
+vendor/bin/commandeer
+```
+
+Type `help` once inside to get started.
+
 ## License
 
 MIT
